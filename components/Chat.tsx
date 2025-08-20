@@ -36,8 +36,26 @@ const Chat: React.FC<ChatProps> = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen) {
       const initChat = () => {
+        let apiKey: string | undefined;
         try {
-          const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
+          // This will fail in a browser environment where process is not defined.
+          apiKey = process.env.API_KEY;
+        } catch (e) {
+          console.error("`process.env.API_KEY` is not available in this browser environment.");
+        }
+
+        if (!apiKey) {
+          setMessages([
+            {
+              role: 'model',
+              text: "AI Assistant is not configured. An API key is required to use this feature.",
+            },
+          ]);
+          return;
+        }
+        
+        try {
+          const ai = new GoogleGenAI({ apiKey: apiKey as string });
           const newChat = ai.chats.create({
             model: 'gemini-2.5-flash',
             config: {
@@ -138,12 +156,12 @@ const Chat: React.FC<ChatProps> = ({ isOpen, onClose }) => {
               onChange={(e) => setCurrentInput(e.target.value)}
               placeholder="Ask about our services..."
               className="flex-1 p-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-600 transition-all"
-              disabled={isLoading}
+              disabled={isLoading || !chat}
             />
             <button
               type="submit"
               className="p-3 bg-gradient-to-r from-amber-500 to-amber-700 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:scale-105"
-              disabled={isLoading || !currentInput.trim()}
+              disabled={isLoading || !currentInput.trim() || !chat}
             >
               <SendIcon />
             </button>
