@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { GoogleGenAI, Chat as GeminiChat } from '@google/genai';
-import { SendIcon } from './icons';
+import { SendIcon } from './icons.tsx';
 
 interface Message {
   role: 'user' | 'model';

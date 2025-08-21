@@ -1,5 +1,5 @@
 import React from 'react';
-import { TwitterIcon, LinkedinIcon, InstagramIcon } from './icons';
+import { TwitterIcon, LinkedinIcon, InstagramIcon } from './icons.tsx';
 
 const Footer: React.FC = () => {
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {

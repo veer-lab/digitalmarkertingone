@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Chat from './Chat';
+import Chat from './Chat.tsx';
 
 const NeuralOrb: React.FC<{ onClick: () => void }> = ({ onClick }) => (
   <div className="neural-orb-container" onClick={onClick}>

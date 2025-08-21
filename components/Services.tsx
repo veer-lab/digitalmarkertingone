@@ -1,6 +1,6 @@
 import React from 'react';
-import ServiceCard from './ServiceCard';
-import { BrainCircuitIcon, BotIcon, UsersIcon, DatabaseZapIcon, TrendingUpIcon } from './icons';
+import ServiceCard from './ServiceCard.tsx';
+import { BrainCircuitIcon, BotIcon, UsersIcon, DatabaseZapIcon, TrendingUpIcon } from './icons.tsx';
 
 const servicesData = [
   {
