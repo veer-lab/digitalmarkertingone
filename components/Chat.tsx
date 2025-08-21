@@ -37,14 +37,14 @@ const Chat: React.FC<ChatProps> = ({ isOpen, onClose }) => {
     if (isOpen) {
       const initChat = () => {
         let apiKey: string | undefined;
-        try {
-          // This will fail in a browser environment where process is not defined.
+
+        // Safely check for API key without throwing a ReferenceError in the browser.
+        if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
           apiKey = process.env.API_KEY;
-        } catch (e) {
-          console.error("`process.env.API_KEY` is not available in this browser environment.");
         }
 
         if (!apiKey) {
+          console.error("`process.env.API_KEY` is not available in this browser environment.");
           setMessages([
             {
               role: 'model',
